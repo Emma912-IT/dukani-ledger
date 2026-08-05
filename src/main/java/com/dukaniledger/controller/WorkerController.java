@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/workers")
@@ -23,5 +25,10 @@ public class WorkerController {
                 request,
                 authentication.getName()
         );
+    }
+
+    @GetMapping
+    public List<Worker> getWorkers() {
+        return workerService.getWorkers();
     }
 }

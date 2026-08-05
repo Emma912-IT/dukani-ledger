@@ -10,6 +10,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class WorkerService {
@@ -17,6 +19,7 @@ public class WorkerService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final BusinessRepository businessRepository;
+    private final BusinessContextService businessContextService;
 
     @PreAuthorize("hasRole('OWNER')")
     public Worker addWorker(
@@ -56,5 +59,12 @@ public class WorkerService {
                 .build();
 
         return workerRepository.save(worker);
+    }
+
+    public List<Worker> getWorkers() {
+        User owner = businessContextService.getOwnerForCurrentUser();
+        Business business = businessRepository.findByOwnerId(owner.getId())
+                .orElseThrow(() -> new RuntimeException("Business not found"));
+        return workerRepository.findByBusinessId(business.getId());
     }
 }
