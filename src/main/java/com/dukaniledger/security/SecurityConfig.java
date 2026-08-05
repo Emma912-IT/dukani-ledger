@@ -28,7 +28,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.setAllowedOrigins(List.of("http://192.168.1.115:3000","http://localhost:3000", "https://dukani-ledger-production.up.railway.app"));
+        configuration.setAllowedOrigins(List.of("http://192.168.1.115:3000","http://localhost:3000", "https://dukani-ledger-production-8a8c.up.railway.app"));
         configuration.setAllowedMethods(List.of("*"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
